@@ -55,7 +55,29 @@ body {
 .card6 {
     background-color: gray;
     grid-area: 3/1/4/5;
+    
 }
+
+.card6 > div {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+}
+.container3 {
+    width: 2000px;
+    background-color: green;
+    display: flex;
+}
+
+.container3 > div {
+    background-color: aliceblue;
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+
 .card7 {
     background-color: green;
     grid-area: 3/5/4/7;
