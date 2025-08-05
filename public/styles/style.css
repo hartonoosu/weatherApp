@@ -1,0 +1,62 @@
+body {
+    height: 100vh;
+    background-color: peru;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: yellow;
+    height: 70%;
+    width: 1500px;
+    margin: 50px;
+}
+
+.container2 {
+    display:grid;
+    grid-template-columns: 150px 150px 200px 200px 200px 150px;
+    grid-template-rows: 170px 170px 300px;
+    gap: 20px;
+}
+
+.container2 > div {
+    border-radius: 15px;
+}
+
+.card1 {
+    background-color: aqua;
+    grid-area: 1/2/3/4;
+}
+
+.card2 {
+    background-color: black ;
+    grid-area: 1/4/2/4;
+}
+
+.card3 {
+    background-color: beige ;
+    grid-area: 1/5/2/6;
+
+}
+.card4 {
+    background-color: palevioletred;
+    grid-area: 2/4/3/5;
+}
+.card5 {
+    background-color: gold;
+    grid-area: 2/5/3/6;
+}
+.card6 {
+    background-color: gray;
+    grid-area: 3/1/4/5;
+}
+.card7 {
+    background-color: green;
+    grid-area: 3/5/4/7;
+}
