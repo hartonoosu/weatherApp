@@ -8,10 +8,25 @@
 </head>
 <body>
     <h1>My Weather Apps</h1>
+    <form action="/get-forecast" method="post">
+        <input type="text" name="lat" placeholder="latitude">
+        <input type="text" name="lon" placeholder="longitude">
+        <input type="text" name="city" placeholder="city">
+        <ul type="text">
+            <li><%= city%></li>
+        </ul>
+        <p><%= city %></p>
+        <button type="submit">Send</button>
+    </form>
 
     <div class="container1">
         <div class="container2">
-            <div class="card1"></div>
+            <div class="card1">
+                <p><%= location %></p>
+                <p>temp: <%= temperature %></p>
+                <img src="<%= icon %>" alt="icon">
+                <p><%= weather %></p>
+            </div>
             <div class="card2"></div>
             <div class="card3"></div>
             <div class="card4"></div>
