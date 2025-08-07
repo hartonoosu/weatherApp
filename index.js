@@ -20,7 +20,11 @@ app.get("/", async (req, res) => {
         city: "city",
         lat: "-",
         lon: "-",
-        locAPI: location_API_KEY
+        locAPI: location_API_KEY,
+        humidity: humidity,
+        wind: wind,
+        feels_like: feels_like,
+        uv: uv
     })
 })
 
@@ -39,6 +43,10 @@ app.post("/get-forecast", async (req,res) => {
         const temperature = Math.round(weatherAPI.data.current.temp);
         const iconURL = `https://openweathermap.org/img/wn/${weatherAPI.data.current.weather[0].icon}@2x.png`;
         const weather = weatherAPI.data.current.weather[0].description;
+        const humidity = weatherAPI.data.current.humidity;
+        const wind = weatherAPI.data.current.wind_speed;
+        const feels_like = weatherAPI.data.current.feels_like;
+        const uv = weatherAPI.data.current.uvi;
 
         console.log(weatherAPI.data.lat, weatherAPI.data.lon)
 
@@ -50,7 +58,12 @@ app.post("/get-forecast", async (req,res) => {
             city: country,
             lat: lat,
             lon: lon,
-            locAPI: location_API_KEY 
+            locAPI: location_API_KEY,
+            humidity: humidity,
+            wind: wind,
+            feels_like: feels_like,
+            uv: uv
+             
         })
     }
     catch (error) {
