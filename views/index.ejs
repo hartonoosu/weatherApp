@@ -9,8 +9,6 @@
 <body>
     <h1>My Weather Apps</h1>
     <form action="/get-forecast" method="post">
-        <input type="text" name="lat" placeholder="latitude">
-        <input type="text" name="lon" placeholder="longitude">
         <input type="text" name="city" placeholder="city">
         <ul type="text">
             <li><%= city%></li>
@@ -56,7 +54,7 @@
                     loading="lazy"
                     allowfullscreen
                     referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDWIxTZv8M2xWLrPbjv791cfONWtFxDJm0&center=<%= lat %>,<%= lon %>&zoom=10"
+                    src="https://www.google.com/maps/embed/v1/view?key=<%= locAPI %>&center=<%= lat %>,<%= lon %>&zoom=10"
                     ></iframe>
             </div>
         </div>

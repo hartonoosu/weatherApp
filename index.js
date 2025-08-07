@@ -1,8 +1,12 @@
 import express from "express";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const port = 3000;
 const app = express();
+const weather_API_KEY = process.env.VITE_WEATHER_API_KEY;
+const location_API_KEY = process.env.VITE_LOCATION_API_KEY;
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -13,26 +17,23 @@ app.get("/", async (req, res) => {
         temperature: "-", 
         icon:"?",
         weather: "weather",
-        city: "city"
+        city: "city",
+        lat: "-",
+        lon: "-",
+        locAPI: location_API_KEY
     })
 })
 
 app.post("/get-forecast", async (req,res) => {
-    const apiKey = "1ff2e987c420ff26cea44dde73aa4efa";
-
-    // if (!lat || !lon){
-    //     lat = (Math.random()*180 - 90).toFixed(6);
-    //     lon = (Math.random()*360 - 90).toFixed(6);
-    // }
 
     try {
         const city = req.body.city;
-        const locationAPI = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`);
+        const locationAPI = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weather_API_KEY}`);
         const country = locationAPI.data[0].state;
         const lat = locationAPI.data[0].lat;
         const lon = locationAPI.data[0].lon;
 
-        const weatherAPI = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&units=metric&appid=${apiKey}`)
+        const weatherAPI = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude={part}&units=metric&appid=${weather_API_KEY}`)
 
         const location = weatherAPI.data.timezone;
         const temperature = Math.round(weatherAPI.data.current.temp);
@@ -48,7 +49,8 @@ app.post("/get-forecast", async (req,res) => {
             weather: weather,
             city: country,
             lat: lat,
-            lon: lon 
+            lon: lon,
+            locAPI: location_API_KEY 
         })
     }
     catch (error) {
