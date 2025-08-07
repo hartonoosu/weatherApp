@@ -81,4 +81,17 @@ body {
 .card7 {
     background-color: green;
     grid-area: 3/5/4/7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+iframe {
+    border-radius: 10px;
+}
+
+#map {
+    height: 500px;
+    width: 50%;
+    margin-top: 20px;
 }
