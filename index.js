@@ -8,6 +8,16 @@ const app = express();
 const weather_API_KEY = process.env.VITE_WEATHER_API_KEY;
 const location_API_KEY = process.env.VITE_LOCATION_API_KEY;
 
+//CONVERT OFFSETSECONDS INTO READABLE TIME
+function convertTime(offset){
+ const nowUTC = new Date();
+    const localTime = new Date(nowUTC.getTime() + offset *1000);
+    const hours = localTime.getUTCHours().toString().padStart(2,'0');
+    const minutes = localTime.getUTCMinutes().toString().padStart(2,'0');
+
+    return `${hours}:${minutes}`;
+}
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,7 +34,9 @@ app.get("/", async (req, res) => {
         humidity: humidity,
         wind: wind,
         feels_like: feels_like,
-        uv: uv
+        uv: uv,
+        currentTime: currentTime
+
     })
 })
 
@@ -47,8 +59,8 @@ app.post("/get-forecast", async (req,res) => {
         const wind = weatherAPI.data.current.wind_speed;
         const feels_like = weatherAPI.data.current.feels_like;
         const uv = weatherAPI.data.current.uvi;
-
-        console.log(weatherAPI.data.lat, weatherAPI.data.lon)
+        const offsetSeconds = weatherAPI.data.timezone_offset;
+        const currentTime = convertTime(offsetSeconds);
 
         res.render("index.ejs", {
             location: location,
@@ -62,8 +74,8 @@ app.post("/get-forecast", async (req,res) => {
             humidity: humidity,
             wind: wind,
             feels_like: feels_like,
-            uv: uv
-             
+            uv: uv,
+            currentTime: currentTime
         })
     }
     catch (error) {
