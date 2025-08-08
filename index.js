@@ -18,6 +18,17 @@ function convertTime(offset){
     return `${hours}:${minutes}`;
 }
 
+//CONVERT DT INTO READABLE TIME
+function convertDT(dt, offset){
+    const date = new Date((dt + offset) * 1000);
+    return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'UTC'
+    });
+}
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,7 +46,9 @@ app.get("/", async (req, res) => {
         wind: wind,
         feels_like: feels_like,
         uv: uv,
-        currentTime: currentTime
+        currentTime: currentTime,
+        dateTime: dateTime
+
 
     })
 })
@@ -59,8 +72,12 @@ app.post("/get-forecast", async (req,res) => {
         const wind = weatherAPI.data.current.wind_speed;
         const feels_like = weatherAPI.data.current.feels_like;
         const uv = weatherAPI.data.current.uvi;
+
         const offsetSeconds = weatherAPI.data.timezone_offset;
         const currentTime = convertTime(offsetSeconds);
+        
+        const dt = weatherAPI.data.hourly[1].dt;
+        const dateTime = convertDT(dt, offsetSeconds);
 
         res.render("index.ejs", {
             location: location,
@@ -75,7 +92,8 @@ app.post("/get-forecast", async (req,res) => {
             wind: wind,
             feels_like: feels_like,
             uv: uv,
-            currentTime: currentTime
+            currentTime: currentTime,
+            dateTime: dateTime
         })
     }
     catch (error) {
