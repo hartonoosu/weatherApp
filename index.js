@@ -42,14 +42,15 @@ app.get("/", async (req, res) => {
         lat: "-",
         lon: "-",
         locAPI: location_API_KEY,
-        humidity: humidity,
-        wind: wind,
-        feels_like: feels_like,
-        uv: uv,
-        currentTime: currentTime,
-        dateTime: dateTime
-
-
+        humidity: "-",
+        wind: "-",
+        feels_like: "-",
+        uv: "-",
+        currentTime: "-",
+        // dateTime: "-",
+        tempts: [],
+        icons:[],
+        dt:[]
     })
 })
 
@@ -76,8 +77,19 @@ app.post("/get-forecast", async (req,res) => {
         const offsetSeconds = weatherAPI.data.timezone_offset;
         const currentTime = convertTime(offsetSeconds);
         
-        const dt = weatherAPI.data.hourly[1].dt;
-        const dateTime = convertDT(dt, offsetSeconds);
+        // const dt = weatherAPI.data.hourly[1].dt;
+
+        const arr = []
+        for(let i = 1;i<11;i++){
+            arr.push({
+                dt: convertDT(weatherAPI.data.hourly[i].dt, offsetSeconds),
+                tempts: weatherAPI.data.hourly[i].temp,
+                icons: `https://openweathermap.org/img/wn/${weatherAPI.data.hourly[i].weather[0].icon}@2x.png`,
+            })
+        }
+
+        console.log(arr)
+        // const dateTime = convertDT(arr[0].dt, offsetSeconds);
 
         res.render("index.ejs", {
             location: location,
@@ -93,7 +105,10 @@ app.post("/get-forecast", async (req,res) => {
             feels_like: feels_like,
             uv: uv,
             currentTime: currentTime,
-            dateTime: dateTime
+            // dateTime: dateTime,
+            dt: arr,
+            tempts: arr,
+            icons: arr
         })
     }
     catch (error) {

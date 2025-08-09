@@ -1,82 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>weatherApp</title>
-    <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
     <h1>My Weather Apps</h1>
     <form action="/get-forecast" method="post">
-        <input type="text" name="city" placeholder="city">
-        <ul type="text">
-            <li><%= city%></li>
-        </ul>
-        <p><%= city %></p>
-        <p><%= currentTime%></p>
-        <button type="submit">Send</button>
+      <input type="text" name="city" placeholder="city" />
+      <ul type="text">
+        <li><%= city%></li>
+      </ul>
+      <p><%= city %></p>
+      <p><%= currentTime%></p>
+      <button type="submit">Send</button>
     </form>
 
     <div class="container1">
-        <div class="container2">
-            <div class="card1">
-                <p><%= location %></p>
-                <p>temp: <%= temperature %></p>
-                <img src="<%= icon %>" alt="icon">
-                <p><%= weather %></p>
-            </div>
-            <div class="card2">
-                <img src="svg/moisture.svg" alt="moisture">
-                <p>HUMIDITY</p>
-                <p><%= humidity %>%</p>
-            </div>
-            <div class="card3">
-                <img src="svg/wind.svg" alt="wind">
-                <p>WIND</p>
-                <p><%= wind %>km/h</p>
-            </div>
-            <div class="card4">
-                <img src="svg/thermometer-half.svg" alt="thermometer">
-                <p>FEELS LIKE</p>
-                <p><%= feels_like %>°C</p>
-            </div>
-            <div class="card5">
-                <img src="svg/sun.svg" alt="sun">
-                <p>UV INDEX</p>
-                <p><%= uv %></p>
-            </div>
-            <div class="card6">
-                <h3>3 hour forecast</h3>
-                    <div>
-                        <div class="container3">
-                        <div class="day1">
-                            <p><%= dateTime %></p>
-                        </div>
-                        <div class="day2"></div>
-                        <div class="day3"></div>
-                        <div class="day4"></div>
-                        <div class="day5"></div>
-                        <div class="day6"></div>
-                        <div class="day7"></div>
-                        <div class="day8"></div>
-                        <div class="day9"></div>
-                        <div class="day10"></div>      
-                    </div>
-                </div>
-            </div>
-            <div class="card7">
-                <iframe
-                    width="300"
-                    height="250"
-                    style="border:0"
-                    loading="lazy"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed/v1/view?key=<%= locAPI %>&center=<%= lat %>,<%= lon %>&zoom=10"
-                    ></iframe>
-            </div>
+      <div class="container2">
+        <div class="card1">
+          <p><%= location %></p>
+          <p>temp: <%= temperature %></p>
+          <img src="<%= icon %>" alt="icon" />
+          <p><%= weather %></p>
         </div>
+        <div class="card2">
+          <img src="svg/moisture.svg" alt="moisture" />
+          <p>HUMIDITY</p>
+          <p><%= humidity %>%</p>
+        </div>
+        <div class="card3">
+          <img src="svg/wind.svg" alt="wind" />
+          <p>WIND</p>
+          <p><%= wind %>km/h</p>
+        </div>
+        <div class="card4">
+          <img src="svg/thermometer-half.svg" alt="thermometer" />
+          <p>FEELS LIKE</p>
+          <p><%= feels_like %>°C</p>
+        </div>
+        <div class="card5">
+          <img src="svg/sun.svg" alt="sun" />
+          <p>UV INDEX</p>
+          <p><%= uv %></p>
+        </div>
+        <div class="card6">
+          <h3>Hourly Forecast</h3>
+          <div>
+            <div class="container3">
+                <% for(let i=0; i<10; i++){%>
+                <div class="day1">
+                    <p><%= dt[i].dt %></p>
+                    <p><%= tempts[i].tempts %>°C</p>
+                    <img src="<%= icons[i].icons %>" alt="" />
+                </div>
+                <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="card7">
+          <iframe
+            width="300"
+            height="250"
+            style="border: 0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/view?key=<%= locAPI %>&center=<%= lat %>,<%= lon %>&zoom=10"
+          ></iframe>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
